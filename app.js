@@ -7,10 +7,10 @@ async function callpost(cRegis,link,type){
       await unirest(
         "POST",link
       )
-        .field("entry.1405683895", cRegis)
-        .field("entry.2062313074", "UPC (ต่างจังหวัด)")
-        // .field("entry.1497021422", cRegis)
-        // .field("entry.1101546368", "UPC (ต่างจังหวัด)")
+        // .field("entry.1405683895", cRegis)
+        // .field("entry.2062313074", "UPC (ต่างจังหวัด)")
+        .field("entry.1497021422", cRegis)
+        .field("entry.1101546368", "UPC (ต่างจังหวัด)")
         .end(function (res) {
           if (res.status == 200) {
             console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
@@ -58,10 +58,10 @@ var TypeName = async (link) => {
 async function CallStart(){
   // Param 1  ทะเบียน
   // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
-  Calling("3ฒญ5043",Dic.MTPR); 
+  // Calling("3ฒญ5043",Dic.MTPR); 
   // Calling("3ฒญ5043",Dic.KBLC); 
   // Calling("3ฒญ5043",Dic.KSLC); 
-  // Calling("ควยเต้ย 44",Dic.TESTA); 
+  Calling("Oicoru 444",Dic.TESTA); 
   // console.log("lamm")
 }
 async function Retry(CarReg,link){
