@@ -64,6 +64,7 @@ async function CallStart(){
   Calling("Oicoru 401",Dic.TESTA); 
   Calling("Oicoru 402",Dic.TESTA); 
   Calling("Oicoru 403",Dic.TESTA); 
+  Calling("Oicoru 404",Dic.TESTA); 
   // console.log("lamm")
 }
 async function Retry(CarReg,link){
