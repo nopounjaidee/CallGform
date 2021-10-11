@@ -61,7 +61,9 @@ async function CallStart(){
   // Calling("3ฒญ5043",Dic.MTPR); 
   // Calling("3ฒญ5043",Dic.KBLC); 
   // Calling("3ฒญ5043",Dic.KSLC); 
-  Calling("Oicoru 444",Dic.TESTA); 
+  Calling("Oicoru 401",Dic.TESTA); 
+  Calling("Oicoru 402",Dic.TESTA); 
+  Calling("Oicoru 403",Dic.TESTA); 
   // console.log("lamm")
 }
 async function Retry(CarReg,link){
