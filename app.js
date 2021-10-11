@@ -59,8 +59,8 @@ async function CallStart(){
   // Param 1  ทะเบียน
   // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
   Calling("3ฒญ5043",Dic.MTPR); 
-  Calling("3ฒญ5043",Dic.KBLC); 
-  Calling("3ฒญ5043",Dic.KSLC); 
+  // Calling("3ฒญ5043",Dic.KBLC); 
+  // Calling("3ฒญ5043",Dic.KSLC); 
   // Calling("ควยเต้ย 44",Dic.TESTA); 
   // console.log("lamm")
 }
