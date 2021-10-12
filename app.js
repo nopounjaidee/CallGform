@@ -1,6 +1,5 @@
-var unirest = require("unirest");
-
 async function callpost(cRegis,link,type){
+    var unirest = require("unirest");
     var NameCall = " ("+ type +") "
     return new Promise(async (resolve, reject) => {
     // setTimeout(async () => {
