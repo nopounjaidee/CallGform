@@ -3,7 +3,7 @@ var unirest = require("unirest");
 async function callpost(cRegis,link,type){
     var NameCall = " ("+ type +") "
     return new Promise(async (resolve, reject) => {
-    // setTimeout(async () => {
+    setTimeout(async () => {
       await unirest(
         "POST",link
       )
@@ -20,7 +20,7 @@ async function callpost(cRegis,link,type){
             resolve(false);
           }
         });
-    // }, 100);
+    }, 300);
   });
 }
 var Dic = {
