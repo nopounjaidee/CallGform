@@ -62,8 +62,8 @@ async function CallStart(){
   // Calling("3ฒญ5043",Dic.KBLC); 
   // Calling("3ฒญ5043",Dic.KSLC); 
   Calling("I YUT 111",Dic.TESTA); 
-  Calling("I YUT 112",Dic.TESTA); 
-  Calling("I YUT 113",Dic.TESTA); 
+  // Calling("I YUT 112",Dic.TESTA); 
+  // Calling("I YUT 113",Dic.TESTA); 
   // console.log("lamm")
 }
 async function Retry(CarReg,link){
