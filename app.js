@@ -1,5 +1,5 @@
+var unirest = require("unirest");
 async function callpost(cRegis,link,type){
-    var unirest = require("unirest");
     var NameCall = " ("+ type +") "
     return new Promise(async (resolve, reject) => {
     // setTimeout(async () => {
@@ -57,10 +57,10 @@ var TypeName = async (link) => {
 async function CallStart(){
   // Param 1  ทะเบียน
   // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
-  Calling("3ฒฉ1862",Dic.MTPR); 
-  // Calling("3ฒฉ1862",Dic.KBLC); 
-  // Calling("3ฒฉ1862",Dic.KSLC); 
-  // Calling("3ฒฉ1862",Dic.KMLC); 
+  // Calling("3ฒฉ1862",Dic.MTPR); 
+  Calling("3ฒฉ1862",Dic.KBLC); 
+  Calling("3ฒฉ1862",Dic.KSLC); 
+  Calling("3ฒฉ1862",Dic.KMLC); 
   // Calling("I YUT 111",Dic.TESTA); 
   // Calling("I YUT 112",Dic.TESTA); 
   // Calling("I YUT 113",Dic.TESTA); 
