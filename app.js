@@ -12,10 +12,10 @@ async function callpost(cRegis,link,type){
         // .field("entry.1101546368", "UPC (ต่างจังหวัด)")
         .end(function (res) {
           if (res.status == 200) {
-            console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toLocaleString("en-US", {timeZone: "Asia/Bangkok"}).substr(12, 8));
+            console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(2, 6));
             resolve(true);
           } else {
-            console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toLocaleString("en-US", {timeZone: "Asia/Bangkok"}).substr(12, 8));
+            console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(2, 6));
             resolve(false);
           }
         });
@@ -75,7 +75,7 @@ async function Calling(CarReg,link){
         loop = await callpost(CarRegist,link,TypeCall) == true ? true : false;
     };
   } catch (error) {
-    console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ TypeCall + " :: ERROR ! : time : " + new Date().toLocaleString("en-US", {timeZone: "Asia/Bangkok"}).substr(12, 8));
+    console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ TypeCall + " :: ERROR ! : time : " + new Date().toTimeString().substr(2, 6));
     Retry(CarReg,link);
   }
 };
