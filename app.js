@@ -60,10 +60,10 @@ async function CallStart(){
     // Calling("3ฒฉ1862",Dic.MTPR); 
   // Calling("3ฒญ5043",Dic.MTPR); 
   // Calling("ข0624",Dic.MTPR); 
-  // Calling("3ฒฉ1862",Dic.KBLC); 
+  Calling("3ฒฉ1862",Dic.KBLC); 
   Calling("3ฒญ5043",Dic.KBLC); 
   // Calling("ข0624",Dic.KBLC); 
-  // Calling("3ฒฉ1862",Dic.KSLC); 
+  Calling("3ฒฉ1862",Dic.KSLC); 
   Calling("3ฒญ5043",Dic.KSLC); 
   // Calling("ข0624",Dic.KSLC); 
 }
