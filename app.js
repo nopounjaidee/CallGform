@@ -57,13 +57,13 @@ var TypeName = async (link) => {
 async function CallStart(){
   // Param 1  ทะเบียน
   // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
-    Calling("3ฒฉ1862",Dic.MTPR); 
-  Calling("3ฒญ5043",Dic.MTPR); 
+  //   Calling("3ฒฉ1862",Dic.MTPR); 
+  // Calling("3ฒญ5043",Dic.MTPR); 
   // Calling("ข0624",Dic.MTPR); 
-  // Calling("3ฒฉ1862",Dic.KBLC); 
+  Calling("3ฒฉ1862",Dic.KBLC); 
   // Calling("3ฒญ5043",Dic.KBLC); 
   // Calling("ข0624",Dic.KBLC); 
-  // Calling("3ฒฉ1862",Dic.KSLC); 
+  Calling("3ฒฉ1862",Dic.KSLC); 
   // Calling("3ฒญ5043",Dic.KSLC); 
   // Calling("ข0624",Dic.KSLC); 
 }
