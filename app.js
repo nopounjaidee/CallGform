@@ -64,7 +64,7 @@ async function CallStart(){
   Calling("3ฒญ5043",Dic.KBLC); 
   // Calling("ข0624",Dic.KBLC); 
   // Calling("3ฒฉ1862",Dic.KSLC); 
-  Calling("3ฒญ5043",Dic.KSLC); 
+  // Calling("3ฒญ5043",Dic.KSLC); 
   // Calling("ข0624",Dic.KSLC); 
 }
 async function Retry(CarReg,link){
