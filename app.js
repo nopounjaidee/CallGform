@@ -7,7 +7,7 @@ async function callpost(cRegis,link,type){
         "POST",link
       )
         .field("entry.1405683895", cRegis)
-        .field("entry.2062313074", "UPC (ต่างจังหวัด)")
+        .field("entry.2062313074", "BKK (กทม. และปริมณฑล)")
         // .field("entry.1497021422", cRegis)
         // .field("entry.1101546368", "UPC (ต่างจังหวัด)")
         .end(function (res) {
@@ -25,6 +25,7 @@ async function callpost(cRegis,link,type){
 var Dic = {
   MTPR : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeN1s5WuC9H9iPEhdJai5kKzECD5DVyLZpsXjKN5ssTxLrMaw/formResponse",
   KBLC : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc-7h1j0sPlTpcUDVLkWz79d6y9uxSrFBuIz32TjZApTOcWAQ/formResponse",
+  KBLC2 : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc6_E-Zx3TbvnBT7hKkYOfmLrDOkt1tUlCw1zBB9qf9u1hSlQ/formResponse",
   KSLC :"https://docs.google.com/forms/u/0/d/e/1FAIpQLSeTxEGwORy8NnJ20r3NcTBHkGU0HL3wI4Mzg7chl4K0C0_4vA/formResponse",
   KMLC:"https://docs.google.com/forms/u/0/d/e/1FAIpQLSccvn0AtV4utbVSvRABj-xP-mogj1uTJR8a-oEq-oWqpXIQCw/formResponse",
   KPLC:"https://docs.google.com/forms/u/0/d/e/1FAIpQLSezoXnCDSGOIJoDyfto003IGypUwaG4kyAxb4NVJVn7F_oYLQ/formResponse",
@@ -38,6 +39,8 @@ var TypeName = async (link) => {
       TyName = "MTPR";
     }else if(link.includes("WAQ")){
       TyName = "KBLC";
+    }else if(link.includes("1hSlQ")){
+      TyName = "KBLC2";
     }else if(link.includes("4vA")){
       TyName = "KSLC";
     }else if(link.includes("IQCw")){
@@ -57,8 +60,9 @@ var TypeName = async (link) => {
 async function CallStart(){
   // Param 1  ทะเบียน
   // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
-  Calling("3ฒฉ1862",Dic.KBLC); 
-  Calling("3ฒฉ1862",Dic.KSLC); 
+  Calling("ข0624",Dic.KBLC2); 
+  // Calling("3ฒฉ1862",Dic.KBLC); 
+  // Calling("3ฒฉ1862",Dic.KSLC); 
   // Calling("ข0624",Dic.KBLC); 
   // Calling("ข0624",Dic.KSLC); 
     // Calling("3ฒฉ1862",Dic.MTPR); 
