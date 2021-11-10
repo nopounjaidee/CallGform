@@ -7,7 +7,8 @@ async function callpost(cRegis,link,type){
         "POST",link
       )
         .field("entry.1405683895", cRegis)
-        .field("entry.2062313074", "BKK (กทม. และปริมณฑล)")
+        .field("entry.2062313074", "UPC (ต่างจังหวัด)")
+        // .field("entry.2062313074", "BKK (กทม. และปริมณฑล)")
         // .field("entry.1497021422", cRegis)
         // .field("entry.1101546368", "UPC (ต่างจังหวัด)")
         .end(function (res) {
@@ -60,9 +61,9 @@ var TypeName = async (link) => {
 async function CallStart(){
   // Param 1  ทะเบียน
   // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
-  Calling("ข0624",Dic.KBLC2); 
-  // Calling("3ฒฉ1862",Dic.KBLC); 
-  // Calling("3ฒฉ1862",Dic.KSLC); 
+  // Calling("ข0624",Dic.KBLC2); 
+  Calling("3ฒฉ1862",Dic.KBLC); 
+  Calling("3ฒฉ1862",Dic.KSLC); 
   // Calling("ข0624",Dic.KBLC); 
   // Calling("ข0624",Dic.KSLC); 
     // Calling("3ฒฉ1862",Dic.MTPR); 
