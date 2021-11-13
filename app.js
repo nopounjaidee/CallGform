@@ -61,16 +61,10 @@ var TypeName = async (link) => {
 async function CallStart(){
   // Param 1  ทะเบียน
   // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
-  // Calling("ข0624",Dic.KBLC2); 
-  Calling("3ฒฉ1862",Dic.KBLC); 
-  Calling("3ฒฉ1862",Dic.KSLC); 
-  // Calling("ข0624",Dic.KBLC); 
-  // Calling("ข0624",Dic.KSLC); 
-    // Calling("3ฒฉ1862",Dic.MTPR); 
-  // Calling("3ฒญ5043",Dic.MTPR); 
-  // Calling("ข0624",Dic.MTPR); 
-  // Calling("3ฒญ5043",Dic.KBLC); 
-  // Calling("3ฒญ5043",Dic.KSLC); 
+  Calling("ผต1054",Dic.KBLC); 
+  Calling("ผต1054",Dic.KSLC); 
+  Calling("ผต1054",Dic.KMLC); 
+  Calling("ผต1054",Dic.KPLC);  
 }
 async function Retry(CarReg,link){
   Calling(CarReg,link);
