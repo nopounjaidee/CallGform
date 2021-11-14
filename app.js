@@ -61,10 +61,10 @@ var TypeName = async (link) => {
 async function CallStart(){
   // Param 1  ทะเบียน
   // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
-  Calling("ผต1054",Dic.KBLC); 
-  Calling("ผต1054",Dic.KSLC); 
-  Calling("ผต1054",Dic.KMLC); 
-  Calling("ผต1054",Dic.KPLC);  
+  Calling("3ฒฉ1862",Dic.KBLC); 
+  Calling("3ฒฉ1862",Dic.KSLC); 
+  Calling("3ฒฉ1862",Dic.KMLC); 
+  Calling("3ฒฉ1862",Dic.KPLC);  
 }
 async function Retry(CarReg,link){
   Calling(CarReg,link);
