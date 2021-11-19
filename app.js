@@ -152,8 +152,8 @@ async function CallStart(){
   Calling("3ฒฉ1862","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","วีรศักดิ์ ศรีสมโภชน์","0908549092",Dic.KMLC); 
   Calling("3ฒฉ1862","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","วีรศักดิ์ ศรีสมโภชน์","0908549092",Dic.KPLC);  
 }
-async function Retry(CarReg,link){
-  Calling(CarReg,link);
+async function Retry(CarReg,com,name,tell,link){
+  Calling(CarReg,com,name,tell,link);
 }
 CallStart();
 async function Calling(CarReg,com,name,tell,link){
@@ -163,10 +163,19 @@ async function Calling(CarReg,com,name,tell,link){
     var CarRegist = CarReg;
     var TypeCall = await TypeName(link) +"-"+ CarRegist; 
     while (loop == false) {
-        loop = await callpost(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
+      if("KBLC"){
+        loop = await callpostKB(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
+      }else if ("KSLC"){
+        loop = await callpostKS(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
+      }else if ("KMLC"){
+        loop = await callpostKM(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
+      }else if ("KPLC"){
+        loop = await callpostKP(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
+      }
+        
     };
   } catch (error) {
     console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ TypeCall + " :: ERROR ! : time : " + new Date().toTimeString().substr(2, 6));
-    Retry(CarReg,link);
+    Retry(CarReg,com,name,tell,link);
   }
 };

@@ -63,8 +63,8 @@ async function CallStart(){
 
   Calling("3ฒฉ1862","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","วีรศักดิ์ ศรีสมโภชน์","0908549092",Dic.MTPR); 
 }
-async function Retry(CarReg,link){
-  Calling(CarReg,link);
+async function Retry(CarReg,com,name,tell,link){
+  Calling(CarReg,com,name,tell,link);
 }
 CallStart();
 async function Calling(CarReg,com,name,tell,link){
@@ -74,10 +74,10 @@ async function Calling(CarReg,com,name,tell,link){
     var CarRegist = CarReg;
     var TypeCall = await TypeName(link) +"-"+ CarRegist; 
     while (loop == false) {
-        loop = await callpost(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
+        loop = await callpostMT(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
     };
   } catch (error) {
     console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ TypeCall + " :: ERROR ! : time : " + new Date().toTimeString().substr(2, 6));
-    Retry(CarReg,link);
+    Retry(CarReg,com,name,tell,link);
   }
 };
