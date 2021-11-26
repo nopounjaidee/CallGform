@@ -1,109 +1,6 @@
 
-
-async function callpostKB(cRegis,com,name,tell,link,type){
-  var unirest = require("unirest");
-   var NameCall = " ("+ type +") "
-   return new Promise(async (resolve, reject) => {
-   // setTimeout(async () => {
-     await unirest(
-       "POST",link
-     )
-       .field("entry.1405683895", cRegis)
-       .field("entry.2062313074", "UPC (ต่างจังหวัด)")
-       .field("entry.403619387", com)
-       .field("entry.1527148059", name)
-       .field("entry.719396994", tell)
-       .field("pageHistory", "0,1")
-       .end(function (res) {
-         if (res.status == 200) {
-           console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(2, 6));
-           resolve(true);
-         } else {
-           console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(2, 6));
-           resolve(false);
-         }
-       });
-   // }, 300);
- });
-}
-async function callpostKS(cRegis,com,name,tell,link,type){
-  var unirest = require("unirest");
-   var NameCall = " ("+ type +") "
-   return new Promise(async (resolve, reject) => {
-   // setTimeout(async () => {
-     await unirest(
-       "POST",link
-     )
-       .field("entry.1405683895", cRegis)
-       .field("entry.2062313074", "UPC (ต่างจังหวัด)")
-       .field("entry.1013496111", com)
-       .field("entry.953475437", name)
-       .field("entry.622068130", tell)
-       .field("pageHistory", "0,1")
-       .end(function (res) {
-         if (res.status == 200) {
-           console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(2, 6));
-           resolve(true);
-         } else {
-           console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(2, 6));
-           resolve(false);
-         }
-       });
-   // }, 300);
- });
-}
-async function callpostKM(cRegis,com,name,tell,link,type){
-  var unirest = require("unirest");
-   var NameCall = " ("+ type +") "
-   return new Promise(async (resolve, reject) => {
-   // setTimeout(async () => {
-     await unirest(
-       "POST",link
-     )
-       .field("entry.1405683895", cRegis)
-       .field("entry.2062313074", "UPC (ต่างจังหวัด)")
-       .field("entry.627358796", com)
-       .field("entry.325886033", name)
-       .field("entry.1742535871", tell)
-       .field("pageHistory", "0,1")
-       .end(function (res) {
-         if (res.status == 200) {
-           console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(2, 6));
-           resolve(true);
-         } else {
-           console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(2, 6));
-           resolve(false);
-         }
-       });
-   // }, 300);
- });
-}
-async function callpostKP(cRegis,com,name,tell,link,type){
-  var unirest = require("unirest");
-   var NameCall = " ("+ type +") "
-   return new Promise(async (resolve, reject) => {
-   // setTimeout(async () => {
-     await unirest(
-       "POST",link
-     )
-       .field("entry.1405683895", cRegis)
-       .field("entry.2062313074", "UPC (ต่างจังหวัด)")
-       .field("entry.546717404", com)
-       .field("entry.1556342174", name)
-       .field("entry.2136555444", tell)
-       .field("pageHistory", "0,1")
-       .end(function (res) {
-         if (res.status == 200) {
-           console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(2, 6));
-           resolve(true);
-         } else {
-           console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(2, 6));
-           resolve(false);
-         }
-       });
-   // }, 300);
- });
-}
+var unirest = require("unirest");
+var result = []
 var Dic = {
   MTPR : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeN1s5WuC9H9iPEhdJai5kKzECD5DVyLZpsXjKN5ssTxLrMaw/formResponse",
   KBLC : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc-7h1j0sPlTpcUDVLkWz79d6y9uxSrFBuIz32TjZApTOcWAQ/formResponse",
@@ -115,72 +12,136 @@ var Dic = {
   TESTB:"https://docs.google.com/forms/d/e/1FAIpQLSdASzn5k8vRToNxonqRWfamxxCVKLahs0Nm5PxPny8wKxH-aw/formResponse",
   TESTC:"https://docs.google.com/forms/d/e/1FAIpQLSccUMC7Yzf5Sf_QEGyvEFFe79CKw8VJP3axhtB2as4z_FCmVg/formResponse",
 };
-var TypeName = async (link) => {
-    var TyName = "";
-    if(link.includes("Maw")){
-      TyName = "MTPR";
-    }else if(link.includes("WAQ")){
-      TyName = "KBLC";
-    }else if(link.includes("1hSlQ")){
-      TyName = "KBLC2";
-    }else if(link.includes("4vA")){
-      TyName = "KSLC";
-    }else if(link.includes("IQCw")){
-      TyName = "KMLC";
-    }else if(link.includes("oYLQ")){
-      TyName = "KPLC";
-    }else if(link.includes("H-aw")){
-      TyName = "TESTB";
-    }else if(link.includes("FCmVg")){
-      TyName = "TESTC";
-    }else{
-      TyName = "TESTA";
-    }
-    // console.log("TypeName :: " + TyName);
-    return TyName;
+var listGform = [
+  {
+    form : "MTPR",
+    ar : [
+      {
+        link:Dic.MTPR,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+      }
+    ]
+  },{
+    form : "KBLC",
+    ar : [
+      {
+        link:Dic.KBLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+      }
+    ]
+  },{
+    form : "KSLC",
+    ar : [
+      {
+        link:Dic.KSLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
+      }
+    ]
+  },{
+    form : "KMLC",
+    ar : [
+      {
+        link:Dic.KMLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
+      }
+    ]
+  },{
+    form : "KPLC",
+    ar : [
+      {
+        link:Dic.KPLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+      }
+    ]
+  },{
+    form : "TESTA",
+    ar : [
+      {
+        link:Dic.TESTA,ecartax:"entry.1497021422",ezone:"entry.1101546368",ecom:"entry.1762606640",ename:"entry.550967469",etell:"entry.2035381388"
+      }
+    ]
+  }
+]
+var listper = [
+  {
+    id:"1",dt:[
+      {
+        cartax:"3ฒญ5043",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"บุญมา คำบุตรษิ",tell:"0822350163"
+      }
+    ]
+  },{
+    id:"2",dt:[
+      {
+        cartax:"3ฒฉ1862",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"วีรศักดิ์ ศรีสมโภชน์",tell:"0908549092"
+      }
+    ]
+  },{
+    id:"3",dt:[
+      {
+        cartax:"3ฒฐ9061",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ตุลาพร สีจุ้ย",tell:"0981195595"
+      }
+    ]
+  },{
+    id:"4",dt:[
+      {
+        cartax:"ฒฒ9847",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ณัฐสิทธิ์ อ่วมสอาด",tell:"0630382987"
+      }
+    ]
+  },{
+    id:"5",dt:[
+      {
+        cartax:"3ฒค4430",zone:"UPC (ต่างจังหวัด)",com:"หจก.ราชัญ ทรานสปอร์ต 2019",name:"นนทชัย แสนศรี",tell:"0933799998"
+      }
+    ]
+  }
+]
+
+async function callpost(Gform,person){
+  var NameCall = " ("+ Gform[0].form + "-" + person[0].dt[0].cartax +") "
+  // console.log(Gform[0]);
+  return new Promise(async (resolve, reject) => {
+  // setTimeout(async () => {
+    await unirest(
+      "POST",Gform[0].ar[0].link
+    )
+      .field(Gform[0].ar[0].ecartax, person[0].dt[0].cartax)
+      .field(Gform[0].ar[0].ezone, person[0].dt[0].zone)
+      .field(Gform[0].ar[0].ecom, person[0].dt[0].com)
+      .field(Gform[0].ar[0].ename, person[0].dt[0].name)
+      .field(Gform[0].ar[0].etell, person[0].dt[0].tell)
+      .field("pageHistory", "0,1")
+      .end(function (res) {
+        if (res.status == 200) {
+          result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(2, 6));
+          console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(2, 6));
+          resolve(true);
+        } else {
+          console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(2, 6));
+          resolve(false);
+        }
+      });
+  // }, 300);
+});
 }
+
 async function CallStart(){
-  // Param 1  ทะเบียน
-  // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
-  Calling("3ฒญ5043","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","บุญมา คำบุตรษิ","0822350163",Dic.KBLC); 
-  Calling("3ฒญ5043","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","บุญมา คำบุตรษิ","0822350163",Dic.KSLC); 
-  // Calling("3ฒญ5043","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","บุญมา คำบุตรษิ","0822350163",Dic.KMLC); 
-  // Calling("3ฒญ5043","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","บุญมา คำบุตรษิ","0822350163",Dic.KPLC);  
-
-  Calling("3ฒค4430","หจก.ราชัญ ทรานสปอร์ต 2019","นนทชัย แสนศรี","0933799998",Dic.KBLC); 
-  Calling("3ฒค4430","หจก.ราชัญ ทรานสปอร์ต 2019","นนทชัย แสนศรี","0933799998",Dic.KSLC); 
-  // Calling("3ฒฉ1862","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","วีรศักดิ์ ศรีสมโภชน์","0908549092",Dic.KMLC); 
-  // Calling("3ฒฉ1862","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","วีรศักดิ์ ศรีสมโภชน์","0908549092",Dic.KPLC);  
-
-  // Calling("3ฒฐ9061","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","ตุลาพร สีจุ้ย","0981195595",Dic.KBLC); 
-  // Calling("3ฒฐ9061","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","ตุลาพร สีจุ้ย","0981195595",Dic.KSLC); 
-  // Calling("ฒฒ9847","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","ณัฐสิทธิ์ อ่วมสอาด","0630382987",Dic.KMLC); 
-  // Calling("ฒฒ9847","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","ณัฐสิทธิ์ อ่วมสอาด","0630382987",Dic.KPLC);  
+  // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
+  // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี" 
+  Calling("KBLC","1")
+  Calling("KSLC","1")
+  Calling("KBLC","2")
+  Calling("KSLC","2")
 }
-async function Retry(CarReg,com,name,tell,link){
-  Calling(CarReg,com,name,tell,link);
+async function Retry(forms,person){
+  Calling(forms,person);
 }
 CallStart();
-async function Calling(CarReg,com,name,tell,link){
+async function Calling(forms,person){
   try {
     var loop = false;
-    var fuc = 0;
-    var CarRegist = CarReg;
-    var TypeCall = await TypeName(link) +"-"+ CarRegist; 
+    const filterA = await listGform.filter(word=>word.form ===forms)
+    const filterB = await listper.filter(word=>word.id ===person)
     while (loop == false) {
-      if("KBLC"){
-        loop = await callpostKB(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
-      }else if ("KSLC"){
-        loop = await callpostKS(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
-      }else if ("KMLC"){
-        loop = await callpostKM(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
-      }else if ("KPLC"){
-        loop = await callpostKP(CarRegist,com,name,tell,link,TypeCall) == true ? true : false;
-      }
-        
+        loop = await callpost(filterA,filterB) == true ? true : false;
     };
+    console.log('\x1b[32m%s\x1b[0m',result);
   } catch (error) {
-    console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ TypeCall + " :: ERROR ! : time : " + new Date().toTimeString().substr(2, 6));
-    Retry(CarReg,com,name,tell,link);
+    console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(2, 6));
+    Retry(forms,person);
   }
 };
