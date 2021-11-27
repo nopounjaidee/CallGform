@@ -88,6 +88,12 @@ var listper = [
         cartax:"3ฒค4430",zone:"UPC (ต่างจังหวัด)",com:"หจก.ราชัญ ทรานสปอร์ต 2019",name:"นนทชัย แสนศรี",tell:"0933799998"
       }
     ]
+  },{
+    id:"6",dt:[
+      {
+        cartax:"ผต1054",zone:"UPC (ต่างจังหวัด)",com:"หจก.เพชรสุวรรณ 2019 ทรานสปอร์ต",name:"เกียรติพิทักษ์  แน่นอุดร",tell:"0880079009"
+      }
+    ]
   }
 ]
 
@@ -121,11 +127,22 @@ async function callpost(Gform,person){
 
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
-  // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี" 
-  Calling("KBLC","1")
+  // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
+  Calling("KMLC","1")
+  Calling("KPLC","1")
   Calling("KSLC","1")
-  Calling("KBLC","2")
+
+  Calling("KMLC","2")
+  Calling("KPLC","2")
   Calling("KSLC","2")
+
+  // Calling("KMLC","3")
+  // Calling("KPLC","3")
+  // Calling("KSLC","3")
+ 
+  // Calling("KMLC","6")
+  // Calling("KPLC","6")
+  // Calling("KSLC","6")
 }
 async function Retry(forms,person){
   Calling(forms,person);
