@@ -94,6 +94,12 @@ var listper = [
         cartax:"ผต1054",zone:"UPC (ต่างจังหวัด)",com:"หจก.เพชรสุวรรณ 2019 ทรานสปอร์ต",name:"เกียรติพิทักษ์  แน่นอุดร",tell:"0880079009"
       }
     ]
+  },{
+    id:"7",dt:[
+      {
+        cartax:"2ฒอ2078",zone:"UPC (ต่างจังหวัด)",com:"หจก.ราชัญ ทรานสปอร์ต 2019",name:"อิทธิพัฒน์",tell:"0922656772"
+      }
+    ]
   }
 ]
 
@@ -124,25 +130,16 @@ async function callpost(Gform,person){
   // }, 300);
 });
 }
-
+// const job = schedule.scheduleJob('59 08 * * *', function(){
+//   CallStart();
+// });
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
   // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
-  Calling("KMLC","1")
-  Calling("KPLC","1")
-  Calling("KSLC","1")
-
-  Calling("KMLC","2")
-  Calling("KPLC","2")
-  Calling("KSLC","2")
-
-  // Calling("KMLC","3")
-  // Calling("KPLC","3")
-  // Calling("KSLC","3")
- 
-  // Calling("KMLC","6")
-  // Calling("KPLC","6")
-  // Calling("KSLC","6")
+  Calling("KBLC","7")
+  Calling("KSLC","7")
+  Calling("KMLC","7")
+  // Calling("MTPR","7")
 }
 async function Retry(forms,person){
   Calling(forms,person);

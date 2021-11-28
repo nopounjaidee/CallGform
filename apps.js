@@ -1,5 +1,6 @@
+
+var unirest = require("unirest");
 async function callpostMT(cRegis,com,name,tell,link,type){
-   var unirest = require("unirest");
     var NameCall = " ("+ type +") "
     return new Promise(async (resolve, reject) => {
     // setTimeout(async () => {
@@ -59,11 +60,7 @@ var TypeName = async (link) => {
 async function CallStart(){
   // Param 1  ทะเบียน
   // Param 2  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TEST
-  Calling("3ฒญ5043","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","บุญมา คำบุตรษิ","0822350163",Dic.MTPR);  
-
-  Calling("3ฒค4430","หจก.ราชัญ ทรานสปอร์ต 2019","นนทชัย แสนศรี","0933799998",Dic.MTPR); 
-// Calling("3ฒฐ9061","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","ตุลาพร สีจุ้ย","0981195595",Dic.MTPR); 
-  // Calling("ฒฒ9847","บริษัท ทีเอสบี ทรานสปอร์ต จำกัด","ณัฐสิทธิ์ อ่วมสอาด","0630382987",Dic.MTPR); 
+  Calling("2ฒอ2078","หจก.ราชัญ ทรานสปอร์ต 2019","อิทธิพัฒน์","0922656772",Dic.MTPR);  
 }
 async function Retry(CarReg,com,name,tell,link){
   Calling(CarReg,com,name,tell,link);
