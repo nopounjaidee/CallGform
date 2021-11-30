@@ -1,7 +1,7 @@
 
 var unirest = require("unirest");
 const schedule = require('node-schedule');
-var result = []
+var result = [".....AllResult"]
 var Dic = {
   MTPR : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeN1s5WuC9H9iPEhdJai5kKzECD5DVyLZpsXjKN5ssTxLrMaw/formResponse",
   KBLC : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc-7h1j0sPlTpcUDVLkWz79d6y9uxSrFBuIz32TjZApTOcWAQ/formResponse",
@@ -150,7 +150,7 @@ async function callpost(Gform,person){
   // }, 300);
 });
 }
-const job = schedule.scheduleJob('0 20 * * *', function(){
+const job = schedule.scheduleJob('43 19 * * *', function(){
   console.log('Start..................');
   CallStart()
 });
@@ -159,8 +159,6 @@ async function CallStart(){
   // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
   Calling("TESTA","4")
   Calling("TESTA","9")
-  
-
 }
 
 async function Retry(forms,person){
@@ -175,7 +173,7 @@ async function Calling(forms,person){
     while (loop == false) {
         loop = await callpost(filterA,filterB) == true ? true : false;
     };
-    console.log('\x1b[32m%s\x1b[0m',result);
+    result.forEach(element => console.log('\x1b[32m%s\x1b[0m',element));
   } catch (error) {
     console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(0, 8));
     Retry(forms,person);
