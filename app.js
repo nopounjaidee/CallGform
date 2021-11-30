@@ -1,5 +1,6 @@
 
 var unirest = require("unirest");
+const schedule = require('node-schedule');
 var result = []
 var Dic = {
   MTPR : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeN1s5WuC9H9iPEhdJai5kKzECD5DVyLZpsXjKN5ssTxLrMaw/formResponse",
@@ -22,6 +23,13 @@ var listGform = [
     ]
   },{
     form : "KBLC",
+    ar : [
+      {
+        link:Dic.KBLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+      }
+    ]
+  },{
+    form : "KBLC2",
     ar : [
       {
         link:Dic.KBLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
@@ -106,6 +114,12 @@ var listper = [
         cartax:"นม6",zone:"UPC (ต่างจังหวัด)",com:"Godthefive Company",name:"LAmOJDEE",tell:"055555555555"
       }
     ]
+  },{
+    id:"9",dt:[
+      {
+        cartax:"ฒฒ9847",zone:"BKK (กทม. และปริมณฑล)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ณัฐสิทธิ์ อ่วมสอาด 🤫",tell:"0630382987"
+      }
+    ]
   }
 ]
 
@@ -125,30 +139,26 @@ async function callpost(Gform,person){
       .field("pageHistory", "0,1")
       .end(function (res) {
         if (res.status == 200) {
-          result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(2, 6));
-          console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(2, 6));
+          result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
+          console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
           resolve(true);
         } else {
-          console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(2, 6));
+          console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(0, 8));
           resolve(false);
         }
       });
   // }, 300);
 });
 }
-// const job = schedule.scheduleJob('59 08 * * *', function(){
-//   CallStart();
-// });
+const job = schedule.scheduleJob('0 20 * * *', function(){
+  console.log('Start..................');
+  CallStart()
+});
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
   // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
-  Calling("KBLC","2")
-  Calling("KSLC","2")
-  Calling("KMLC","2")
-
-  Calling("KBLC","3")
-  Calling("KSLC","3")
-  Calling("KMLC","3")
+  Calling("TESTA","4")
+  Calling("TESTA","9")
   
 
 }
@@ -167,7 +177,7 @@ async function Calling(forms,person){
     };
     console.log('\x1b[32m%s\x1b[0m',result);
   } catch (error) {
-    console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(2, 6));
+    console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(0, 8));
     Retry(forms,person);
   }
 };

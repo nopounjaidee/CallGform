@@ -28,6 +28,13 @@ var listGform = [
       }
     ]
   },{
+    form : "KBLC2",
+    ar : [
+      {
+        link:Dic.KBLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+      }
+    ]
+  },{
     form : "KSLC",
     ar : [
       {
@@ -136,8 +143,8 @@ async function callpost(Gform,person){
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
   // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
-  Calling("MTPR","3")
-  Calling("MTPR","2")
+  // Calling("MTPR","3")
+  // Calling("MTPR","2")
   
   // Calling("MTPR","7")
 }
