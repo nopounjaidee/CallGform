@@ -150,7 +150,7 @@ async function callpost(Gform,person){
   // }, 300);
 });
 }
-const job = schedule.scheduleJob('43 19 * * *', function(){
+const job = schedule.scheduleJob('0 20 * * *', function(){
   console.log('Start..................');
   CallStart()
 });
