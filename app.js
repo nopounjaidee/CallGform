@@ -120,6 +120,12 @@ var listper = [
         cartax:"ฒฒ9847",zone:"BKK (กทม. และปริมณฑล)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ณัฐสิทธิ์ อ่วมสอาด 🤫",tell:"0630382987"
       }
     ]
+  },{
+    id:"10",dt:[
+      {
+        cartax:"2ฒอ9253",zone:"UPC (ต่างจังหวัด)",com:"บริษัท เอ็มสแควร์ พาส จำกัด",name:"ภานุพงศ์ ไพเราะ 🤫",tell:"0954477180"
+      }
+    ]
   }
 ]
 
@@ -150,15 +156,22 @@ async function callpost(Gform,person){
   // }, 300);
 });
 }
-const job = schedule.scheduleJob('0 21 * * *', function(){
+const job = schedule.scheduleJob('59 15 * * *', function(){
   console.log('Start..................');
   CallStart()
 });
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
   // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
-  Calling("KBLC2","9")
-  Calling("KMLC","9")
+  Calling("KBLC","1")
+  Calling("KSLC","1")
+  Calling("KMLC","1")
+  Calling("KBLC","4")
+  Calling("KSLC","4")
+  Calling("KMLC","4")
+  Calling("KBLC","10")
+  Calling("KSLC","10")
+  Calling("KMLC","10")
 }
 
 async function Retry(forms,person){
