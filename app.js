@@ -163,15 +163,18 @@ const job = schedule.scheduleJob('59 15 * * *', function(){
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
   // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
-  Calling("KBLC","1")
-  Calling("KSLC","1")
-  Calling("KMLC","1")
-  Calling("KBLC","4")
-  Calling("KSLC","4")
-  Calling("KMLC","4")
-  Calling("KBLC","10")
-  Calling("KSLC","10")
-  Calling("KMLC","10")
+  Calling("KBLC","2")
+  Calling("KSLC","2")
+  Calling("KMLC","2")
+  Calling("KBLC","3")
+  Calling("KSLC","3")
+  // Calling("KMLC","3")
+  // Calling("KBLC","4")
+  // Calling("KSLC","4")
+  // Calling("KMLC","4")
+  // Calling("KBLC","10")
+  // Calling("KSLC","10")
+  // Calling("KMLC","10")
 }
 
 async function Retry(forms,person){
