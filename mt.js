@@ -156,10 +156,10 @@ async function callpost(Gform,person){
   // }, 300);
 });
 }
-const job = schedule.scheduleJob('59 16 * * *', function(){
-  console.log('Start..................');
-  CallStart()
-});
+// const job = schedule.scheduleJob('59 16 * * *', function(){
+//   console.log('Start..................');
+//   CallStart()
+// });
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
   // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
@@ -172,7 +172,7 @@ async function CallStart(){
 async function Retry(forms,person){
   Calling(forms,person);
 }
-// CallStart();
+CallStart();
 async function Calling(forms,person){
   try {
     var loop = false;
