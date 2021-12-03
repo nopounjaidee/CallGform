@@ -1,0 +1,237 @@
+
+const { google } = require("googleapis");
+const unirest = require("unirest");
+const schedule = require('node-schedule');
+var result = [".....AllResult"]
+const auth = new google.auth.GoogleAuth({
+  keyFile: "credentials.json",
+  scopes: "https://www.googleapis.com/auth/spreadsheets",
+});
+const spreadsheetId = "1aRG1ZGo_2qJxNp0OXzU7D7lckfz9AGNjFddeJ_ivWY0";
+async function CallGsheet(){
+  return new Promise(async (resolve, reject) => {
+    // Create client instance for auth
+    const client = await auth.getClient();
+    
+    // Instance of Google Sheets API
+    const googleSheets = google.sheets({ version: "v4", auth: client });
+    // Read rows from spreadsheet
+    const getRows = await googleSheets.spreadsheets.values.get({
+      auth,
+      spreadsheetId,
+      // range: "Sheet1",
+      range: "Server2!A:G",
+    });
+    resolve(getRows);
+  });
+}
+async function CallCreateLog(name,carid,log){
+  // Create client instance for auth
+  const client = await auth.getClient();
+  // Instance of Google Sheets API
+  const googleSheets = google.sheets({ version: "v4", auth: client });
+  // Write row(s) to spreadsheet
+  await googleSheets.spreadsheets.values.append({
+    auth,
+    spreadsheetId,
+    range: "log2!A:D",
+    valueInputOption: "USER_ENTERED",
+    resource: {
+      values: [[name,carid,log,Date()]],
+    },
+  });
+}
+var Dic = {
+  MTPR : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeN1s5WuC9H9iPEhdJai5kKzECD5DVyLZpsXjKN5ssTxLrMaw/formResponse",
+  KBLC : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc-7h1j0sPlTpcUDVLkWz79d6y9uxSrFBuIz32TjZApTOcWAQ/formResponse",
+  KBLC2 : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc6_E-Zx3TbvnBT7hKkYOfmLrDOkt1tUlCw1zBB9qf9u1hSlQ/formResponse",
+  KSLC :"https://docs.google.com/forms/u/0/d/e/1FAIpQLSeTxEGwORy8NnJ20r3NcTBHkGU0HL3wI4Mzg7chl4K0C0_4vA/formResponse",
+  KMLC:"https://docs.google.com/forms/u/0/d/e/1FAIpQLSccvn0AtV4utbVSvRABj-xP-mogj1uTJR8a-oEq-oWqpXIQCw/formResponse",
+  KPLC:"https://docs.google.com/forms/u/0/d/e/1FAIpQLSezoXnCDSGOIJoDyfto003IGypUwaG4kyAxb4NVJVn7F_oYLQ/formResponse",
+  TESTA:"https://docs.google.com/forms/d/e/1FAIpQLSdPydZ3hO61EoFrHV96rtcwgR4fxuhYZhON_NeaRICE2Dc7mg/formResponse",
+  TESTB:"https://docs.google.com/forms/d/e/1FAIpQLSdASzn5k8vRToNxonqRWfamxxCVKLahs0Nm5PxPny8wKxH-aw/formResponse",
+  TESTC:"https://docs.google.com/forms/d/e/1FAIpQLSccUMC7Yzf5Sf_QEGyvEFFe79CKw8VJP3axhtB2as4z_FCmVg/formResponse",
+};
+var listGform = [
+  {
+    form : "MTPR",
+    ar : [
+      {
+        link:Dic.MTPR,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+      }
+    ]
+  },{
+    form : "KBLC",
+    ar : [
+      {
+        link:Dic.KBLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+      }
+    ]
+  },{
+    form : "KBLC2",
+    ar : [
+      {
+        link:Dic.KBLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+      }
+    ]
+  },{
+    form : "KSLC",
+    ar : [
+      {
+        link:Dic.KSLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
+      }
+    ]
+  },{
+    form : "KMLC",
+    ar : [
+      {
+        link:Dic.KMLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
+      }
+    ]
+  },{
+    form : "KPLC",
+    ar : [
+      {
+        link:Dic.KPLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+      }
+    ]
+  },{
+    form : "TESTA",
+    ar : [
+      {
+        link:Dic.TESTA,ecartax:"entry.1497021422",ezone:"entry.1101546368",ecom:"entry.1762606640",ename:"entry.550967469",etell:"entry.2035381388"
+      }
+    ]
+  }
+]
+var listper = [
+  {
+    id:"1",dt:[
+      {
+        cartax:"3ฒญ5043",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"บุญมา คำบุตรษิ 🤫",tell:"0822350163"
+      }
+    ]
+  },{
+    id:"2",dt:[
+      {
+        cartax:"3ฒฉ1862",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"วีรศักดิ์ ศรีสมโภชน์ 🤫",tell:"0908549092"
+      }
+    ]
+  },{
+    id:"3",dt:[
+      {
+        cartax:"3ฒฐ9061",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ตุลาพร สีจุ้ย 🤫",tell:"0981195595"
+      }
+    ]
+  },{
+    id:"4",dt:[
+      {
+        cartax:"ฒฒ9847",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ณัฐสิทธิ์ อ่วมสอาด 🤫",tell:"0630382987"
+      }
+    ]
+  },{
+    id:"5",dt:[
+      {
+        cartax:"3ฒค4430",zone:"UPC (ต่างจังหวัด)",com:"หจก.ราชัญ ทรานสปอร์ต 2019",name:"นนทชัย แสนศรี 🤫",tell:"0933799998"
+      }
+    ]
+  },{
+    id:"6",dt:[
+      {
+        cartax:"ผต1054",zone:"UPC (ต่างจังหวัด)",com:"หจก.เพชรสุวรรณ 2019 ทรานสปอร์ต",name:"เกียรติพิทักษ์  แน่นอุดร 🤫",tell:"0880079009"
+      }
+    ]
+  },{
+    id:"7",dt:[
+      {
+        cartax:"2ฒอ2078",zone:"UPC (ต่างจังหวัด)",com:"หจก.ราชัญ ทรานสปอร์ต 2019",name:"อิทธิพัฒน์ 🤫",tell:"0922656772"
+      }
+    ]
+  },{
+    id:"8",dt:[
+      {
+        cartax:"นม6",zone:"UPC (ต่างจังหวัด)",com:"Godthefive Company",name:"LAmOJDEE",tell:"055555555555"
+      }
+    ]
+  },{
+    id:"9",dt:[
+      {
+        cartax:"ฒฒ9847",zone:"BKK (กทม. และปริมณฑล)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ณัฐสิทธิ์ อ่วมสอาด 🤫",tell:"0630382987"
+      }
+    ]
+  },{
+    id:"10",dt:[
+      {
+        cartax:"2ฒอ9253",zone:"UPC (ต่างจังหวัด)",com:"บริษัท เอ็มสแควร์ พาส จำกัด",name:"ภานุพงศ์ ไพเราะ 🤫",tell:"0954477180"
+      }
+    ]
+  }
+]
+const sheetlist = []
+async function callpost(Gform,person){
+  var NameCall = " ("+ Gform[0].form + "-" + person.cartax +") "
+  return new Promise(async (resolve, reject) => {
+  // setTimeout(async () => {
+    await unirest(
+      "POST",Gform[0].ar[0].link
+    )
+      .field(Gform[0].ar[0].ecartax, person.cartax)
+      .field(Gform[0].ar[0].ezone, person.zone)
+      .field(Gform[0].ar[0].ecom, person.com)
+      .field(Gform[0].ar[0].ename, person.name)
+      .field(Gform[0].ar[0].etell, person.tell)
+      .field("pageHistory", "0,1")
+      .end(function (res) {
+        if (res.status == 200) {
+          result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
+          console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
+          resolve(true);
+        } else {
+          console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(0, 8));
+          resolve(false);
+        }
+      });
+  // }, 300);
+});
+}
+ GetdataSheet()
+const job = schedule.scheduleJob('59 15 * * *', function(){
+  console.log('Start..................');
+  CallStart()
+});
+async function GetdataSheet(){
+  var datasheet = await CallGsheet()
+  const CArr = datasheet.data.values.length
+  const CItem = datasheet.data.values[0].length
+  for (let index = 1; index < CArr; index++) {
+    const item = await {cartax:datasheet.data.values[index][0],zone:datasheet.data.values[index][1],com:datasheet.data.values[index][2],name:datasheet.data.values[index][3],tell:datasheet.data.values[index][4],store:datasheet.data.values[index][5],mote:datasheet.data.values[index][6]}
+    await sheetlist.push(item)
+  }
+}
+async function CallStart(){
+  // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
+  // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
+ 
+  const filtersheet = await sheetlist.filter(word=>word.mote ==="Run")
+  filtersheet.forEach(element => Calling(element.store,element));
+
+}
+
+async function Retry(forms,person){
+  Calling(forms,person);
+}
+// CallStart();
+async function Calling(forms,person){
+  try {
+    var loop = false;
+    const filterA = await listGform.filter(word=>word.form ===forms)
+    while (loop == false) {
+        loop = await callpost(filterA,person) == true ? true : false;
+    };
+    await CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
+    result.forEach(element => console.log('\x1b[32m%s\x1b[0m',element));
+  } catch (error) {
+    console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(0, 8));
+    Retry(forms,person);
+  }
+};

@@ -1,7 +1,46 @@
 
-var unirest = require("unirest");
+const { google } = require("googleapis");
+const unirest = require("unirest");
 const schedule = require('node-schedule');
 var result = [".....AllResult"]
+const auth = new google.auth.GoogleAuth({
+  keyFile: "credentials.json",
+  scopes: "https://www.googleapis.com/auth/spreadsheets",
+});
+const spreadsheetId = "1aRG1ZGo_2qJxNp0OXzU7D7lckfz9AGNjFddeJ_ivWY0";
+async function CallGsheet(){
+  return new Promise(async (resolve, reject) => {
+    // Create client instance for auth
+    const client = await auth.getClient();
+    
+    // Instance of Google Sheets API
+    const googleSheets = google.sheets({ version: "v4", auth: client });
+    // Read rows from spreadsheet
+    const getRows = await googleSheets.spreadsheets.values.get({
+      auth,
+      spreadsheetId,
+      // range: "Sheet1",
+      range: "Server1!A:G",
+    });
+    resolve(getRows);
+  });
+}
+async function CallCreateLog(name,carid,log){
+  // Create client instance for auth
+  const client = await auth.getClient();
+  // Instance of Google Sheets API
+  const googleSheets = google.sheets({ version: "v4", auth: client });
+  // Write row(s) to spreadsheet
+  await googleSheets.spreadsheets.values.append({
+    auth,
+    spreadsheetId,
+    range: "log1!A:D",
+    valueInputOption: "USER_ENTERED",
+    resource: {
+      values: [[name,carid,log,Date()]],
+    },
+  });
+}
 var Dic = {
   MTPR : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeN1s5WuC9H9iPEhdJai5kKzECD5DVyLZpsXjKN5ssTxLrMaw/formResponse",
   KBLC : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc-7h1j0sPlTpcUDVLkWz79d6y9uxSrFBuIz32TjZApTOcWAQ/formResponse",
@@ -128,20 +167,19 @@ var listper = [
     ]
   }
 ]
-
+const sheetlist = []
 async function callpost(Gform,person){
-  var NameCall = " ("+ Gform[0].form + "-" + person[0].dt[0].cartax +") "
-  // console.log(Gform[0]);
+  var NameCall = " ("+ Gform[0].form + "-" + person.cartax +") "
   return new Promise(async (resolve, reject) => {
   // setTimeout(async () => {
     await unirest(
       "POST",Gform[0].ar[0].link
     )
-      .field(Gform[0].ar[0].ecartax, person[0].dt[0].cartax)
-      .field(Gform[0].ar[0].ezone, person[0].dt[0].zone)
-      .field(Gform[0].ar[0].ecom, person[0].dt[0].com)
-      .field(Gform[0].ar[0].ename, person[0].dt[0].name)
-      .field(Gform[0].ar[0].etell, person[0].dt[0].tell)
+      .field(Gform[0].ar[0].ecartax, person.cartax)
+      .field(Gform[0].ar[0].ezone, person.zone)
+      .field(Gform[0].ar[0].ecom, person.com)
+      .field(Gform[0].ar[0].ename, person.name)
+      .field(Gform[0].ar[0].etell, person.tell)
       .field("pageHistory", "0,1")
       .end(function (res) {
         if (res.status == 200) {
@@ -156,17 +194,27 @@ async function callpost(Gform,person){
   // }, 300);
 });
 }
+ GetdataSheet()
 const job = schedule.scheduleJob('59 16 * * *', function(){
   console.log('Start..................');
   CallStart()
 });
+async function GetdataSheet(){
+  var datasheet = await CallGsheet()
+  const CArr = datasheet.data.values.length
+  const CItem = datasheet.data.values[0].length
+  for (let index = 1; index < CArr; index++) {
+    const item = await {cartax:datasheet.data.values[index][0],zone:datasheet.data.values[index][1],com:datasheet.data.values[index][2],name:datasheet.data.values[index][3],tell:datasheet.data.values[index][4],store:datasheet.data.values[index][5],mote:datasheet.data.values[index][6]}
+    await sheetlist.push(item)
+  }
+}
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
   // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
-  // Calling("MTPR","10")
-  // Calling("MTPR","4")
-  Calling("MTPR","3")
-  Calling("MTPR","2")
+ 
+  const filtersheet = await sheetlist.filter(word=>word.mote ==="Run")
+  filtersheet.forEach(element => Calling(element.store,element));
+
 }
 
 async function Retry(forms,person){
@@ -177,10 +225,10 @@ async function Calling(forms,person){
   try {
     var loop = false;
     const filterA = await listGform.filter(word=>word.form ===forms)
-    const filterB = await listper.filter(word=>word.id ===person)
     while (loop == false) {
-        loop = await callpost(filterA,filterB) == true ? true : false;
+        loop = await callpost(filterA,person) == true ? true : false;
     };
+    await CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
     result.forEach(element => console.log('\x1b[32m%s\x1b[0m',element));
   } catch (error) {
     console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(0, 8));
