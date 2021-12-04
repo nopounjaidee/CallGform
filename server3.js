@@ -195,7 +195,7 @@ async function callpost(Gform,person){
 });
 }
  GetdataSheet()
-const job = schedule.scheduleJob('3 16 * * *', function(){
+const job = schedule.scheduleJob('59 15 * * *', function(){
   console.log('Start..................');
   CallStart()
 });
@@ -203,6 +203,7 @@ async function GetdataSheet(){
   var datasheet = await CallGsheet()
   const CArr = datasheet.data.values.length
   const CItem = datasheet.data.values[0].length
+  console.log(datasheet.data.values)
   for (let index = 1; index < CArr; index++) {
     const item = await {cartax:datasheet.data.values[index][0],zone:datasheet.data.values[index][1],com:datasheet.data.values[index][2],name:datasheet.data.values[index][3],tell:datasheet.data.values[index][4],store:datasheet.data.values[index][5],mote:datasheet.data.values[index][6]}
     await sheetlist.push(item)
@@ -228,7 +229,7 @@ async function Calling(forms,person){
     while (loop == false) {
         loop = await callpost(filterA,person) == true ? true : false;
     };
-    await CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
+    await CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + ":: " +person.zone + "  :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
     result.forEach(element => console.log('\x1b[32m%s\x1b[0m',element));
   } catch (error) {
     console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(0, 8));
