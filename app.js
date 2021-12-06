@@ -195,10 +195,27 @@ async function callpost(Gform,person){
 });
 }
  GetdataSheet()
+// const llam = []
 const job = schedule.scheduleJob('59 15 * * *', function(){
   console.log('Start..................');
+  // for (let index = 0; index < 50; index++) {
+  //   llam.push({idlam:index,name:"lam "+ index})
+  // }
   CallStart()
 });
+// schedulelam("15","4")
+// function schedulelam(h,m){
+//   console.log("scheduleJob2 .........RIMMING.......")
+//   const rule = new schedule.RecurrenceRule();
+//         rule.hour = h;
+//         rule.minute = m;
+//   const job2 = schedule.scheduleJob(rule, function(){
+//     console.log('Start2..................');
+//     // CallStart()
+//     llam.forEach(element => console.log('\x1b[32m%s\x1b[0m',element));
+//   });
+// }
+
 async function GetdataSheet(){
   var datasheet = await CallGsheet()
   const CArr = datasheet.data.values.length
@@ -215,7 +232,6 @@ async function CallStart(){
  
   const filtersheet = await sheetlist.filter(word=>word.mote ==="Run")
   filtersheet.forEach(element => Calling(element.store,element));
-
 }
 
 async function Retry(forms,person){

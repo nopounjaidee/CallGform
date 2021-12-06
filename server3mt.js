@@ -195,7 +195,7 @@ async function callpost(Gform,person){
 });
 }
  GetdataSheet()
-const job = schedule.scheduleJob('59 16 * * *', function(){
+const job = schedule.scheduleJob('15 19 * * *', function(){
   console.log('Start..................');
   CallStart()
 });
