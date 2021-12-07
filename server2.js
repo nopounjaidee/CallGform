@@ -1,6 +1,5 @@
-
 const { google } = require("googleapis");
-const unirest = require("unirest");
+var unirest = require("unirest");
 const schedule = require('node-schedule');
 var result = [".....AllResult"]
 const auth = new google.auth.GoogleAuth({
@@ -20,7 +19,7 @@ async function CallGsheet(){
       auth,
       spreadsheetId,
       // range: "Sheet1",
-      range: "Server2!A:G",
+      range: "Server2!A:I",
     });
     resolve(getRows);
   });
@@ -104,69 +103,7 @@ var listGform = [
     ]
   }
 ]
-var listper = [
-  {
-    id:"1",dt:[
-      {
-        cartax:"3ฒญ5043",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"บุญมา คำบุตรษิ 🤫",tell:"0822350163"
-      }
-    ]
-  },{
-    id:"2",dt:[
-      {
-        cartax:"3ฒฉ1862",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"วีรศักดิ์ ศรีสมโภชน์ 🤫",tell:"0908549092"
-      }
-    ]
-  },{
-    id:"3",dt:[
-      {
-        cartax:"3ฒฐ9061",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ตุลาพร สีจุ้ย 🤫",tell:"0981195595"
-      }
-    ]
-  },{
-    id:"4",dt:[
-      {
-        cartax:"ฒฒ9847",zone:"UPC (ต่างจังหวัด)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ณัฐสิทธิ์ อ่วมสอาด 🤫",tell:"0630382987"
-      }
-    ]
-  },{
-    id:"5",dt:[
-      {
-        cartax:"3ฒค4430",zone:"UPC (ต่างจังหวัด)",com:"หจก.ราชัญ ทรานสปอร์ต 2019",name:"นนทชัย แสนศรี 🤫",tell:"0933799998"
-      }
-    ]
-  },{
-    id:"6",dt:[
-      {
-        cartax:"ผต1054",zone:"UPC (ต่างจังหวัด)",com:"หจก.เพชรสุวรรณ 2019 ทรานสปอร์ต",name:"เกียรติพิทักษ์  แน่นอุดร 🤫",tell:"0880079009"
-      }
-    ]
-  },{
-    id:"7",dt:[
-      {
-        cartax:"2ฒอ2078",zone:"UPC (ต่างจังหวัด)",com:"หจก.ราชัญ ทรานสปอร์ต 2019",name:"อิทธิพัฒน์ 🤫",tell:"0922656772"
-      }
-    ]
-  },{
-    id:"8",dt:[
-      {
-        cartax:"นม6",zone:"UPC (ต่างจังหวัด)",com:"Godthefive Company",name:"LAmOJDEE",tell:"055555555555"
-      }
-    ]
-  },{
-    id:"9",dt:[
-      {
-        cartax:"ฒฒ9847",zone:"BKK (กทม. และปริมณฑล)",com:"บริษัท ทีเอสบี ทรานสปอร์ต จำกัด",name:"ณัฐสิทธิ์ อ่วมสอาด 🤫",tell:"0630382987"
-      }
-    ]
-  },{
-    id:"10",dt:[
-      {
-        cartax:"2ฒอ9253",zone:"UPC (ต่างจังหวัด)",com:"บริษัท เอ็มสแควร์ พาส จำกัด",name:"ภานุพงศ์ ไพเราะ 🤫",tell:"0954477180"
-      }
-    ]
-  }
-]
+
 const sheetlist = []
 async function callpost(Gform,person){
   var NameCall = " ("+ Gform[0].form + "-" + person.cartax +") "
@@ -195,27 +132,31 @@ async function callpost(Gform,person){
 });
 }
  GetdataSheet()
-const job = schedule.scheduleJob('59 15 * * *', function(){
-  console.log('Start..................');
-  CallStart()
-});
+async function schedulelam(h,m){
+  console.log("scheduleJob .........WILL RUNNING AFTER " + h+":"+m+" Min")
+  const rule = await new schedule.RecurrenceRule();
+        rule.hour = h;
+        rule.minute = m;
+  const job2 = schedule.scheduleJob(rule,function(){
+    console.log('RUNNING..............');
+    CallStart();
+  });
+}
 async function GetdataSheet(){
   var datasheet = await CallGsheet()
   const CArr = datasheet.data.values.length
   const CItem = datasheet.data.values[0].length
-  console.log(datasheet.data.values)
+  // console.log(datasheet.data.values)
   for (let index = 1; index < CArr; index++) {
     const item = await {cartax:datasheet.data.values[index][0],zone:datasheet.data.values[index][1],com:datasheet.data.values[index][2],name:datasheet.data.values[index][3],tell:datasheet.data.values[index][4],store:datasheet.data.values[index][5],mote:datasheet.data.values[index][6]}
     await sheetlist.push(item)
   }
+  schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
 }
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
-  // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
- 
   const filtersheet = await sheetlist.filter(word=>word.mote ==="Run")
   filtersheet.forEach(element => Calling(element.store,element));
-
 }
 
 async function Retry(forms,person){
@@ -229,7 +170,7 @@ async function Calling(forms,person){
     while (loop == false) {
         loop = await callpost(filterA,person) == true ? true : false;
     };
-    await CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + ":: " +person.zone + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
+    CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + ":: " +person.zone + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
     result.forEach(element => console.log('\x1b[32m%s\x1b[0m',element));
   } catch (error) {
     console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(0, 8));
