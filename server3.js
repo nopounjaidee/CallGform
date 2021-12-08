@@ -137,6 +137,7 @@ async function schedulelam(h,m){
   const rule = await new schedule.RecurrenceRule();
         rule.hour = h;
         rule.minute = m;
+        rule.tz = 'Asia/Bangkok';
   const job2 = schedule.scheduleJob(rule,function(){
     console.log('RUNNING..............');
     CallStart();
