@@ -175,7 +175,7 @@ async function Calling(forms,person){
     while (loop == false) {
         loop = await callpost(filterA,person) == true ? true : false;
     };
-    CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + ":: " +person.zone + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
+    // CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + ":: " +person.zone + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
     result.forEach(element => console.log('\x1b[32m%s\x1b[0m',element));
   } catch (error) {
     console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(0, 8));
