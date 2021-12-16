@@ -1,4 +1,3 @@
-
 const { google } = require("googleapis");
 var unirest = require("unirest");
 const schedule = require('node-schedule');
@@ -20,7 +19,7 @@ async function CallGsheet(){
       auth,
       spreadsheetId,
       // range: "Sheet1",
-      range: "Server1!A:G",
+      range: "Server4!A:I",
     });
     resolve(getRows);
   });
@@ -34,7 +33,7 @@ async function CallCreateLog(name,carid,log){
   await googleSheets.spreadsheets.values.append({
     auth,
     spreadsheetId,
-    range: "log1!A:D",
+    range: "log4!A:D",
     valueInputOption: "USER_ENTERED",
     resource: {
       values: [[name,carid,log,Date()]],
@@ -42,7 +41,7 @@ async function CallCreateLog(name,carid,log){
   });
 }
 var Dic = {
-  MTPR : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeN1s5WuC9H9iPEhdJai5kKzECD5DVyLZpsXjKN5ssTxLrMaw/formResponse",
+  MTPR : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeUdmVxPjlVwmr9_OLKQ7BbKPo3VLrQX2bsZuHnQtjkPklt8w/formResponse",
   KBLC : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc-7h1j0sPlTpcUDVLkWz79d6y9uxSrFBuIz32TjZApTOcWAQ/formResponse",
   KBLC2 : "https://docs.google.com/forms/u/0/d/e/1FAIpQLSc6_E-Zx3TbvnBT7hKkYOfmLrDOkt1tUlCw1zBB9qf9u1hSlQ/formResponse",
   KSLC :"https://docs.google.com/forms/u/0/d/e/1FAIpQLSeTxEGwORy8NnJ20r3NcTBHkGU0HL3wI4Mzg7chl4K0C0_4vA/formResponse",
@@ -57,7 +56,7 @@ var listGform = [
     form : "MTPR",
     ar : [
       {
-        link:Dic.MTPR,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+        link:Dic.MTPR,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
       }
     ]
   },{
@@ -133,27 +132,37 @@ async function callpost(Gform,person){
 });
 }
  GetdataSheet()
-const job = schedule.scheduleJob('59 16 * * *', function(){
-  console.log('Start..................');
-  CallStart()
-});
+async function schedulelam(h,m){
+  console.log("scheduleJob .........WILL RUNNING AFTER " + h+":"+m+" Min")
+  const rule = await new schedule.RecurrenceRule();
+        rule.hour = h;
+        rule.minute = m;
+        rule.second = 50;
+        rule.tz = 'Asia/Bangkok';
+  const job2 = schedule.scheduleJob(rule,function(){
+    console.log('RUNNING..............');
+    CallStart();
+  });
+}
+// async function lamtest(){
+//   const xx = await sheetlist.filter(word=>word.mote ==="Run")
+//   xx.forEach(element => console.log(element));
+// }
 async function GetdataSheet(){
   var datasheet = await CallGsheet()
   const CArr = datasheet.data.values.length
   const CItem = datasheet.data.values[0].length
-  console.log(datasheet.data.values)
+  // console.log(datasheet.data.values)
   for (let index = 1; index < CArr; index++) {
     const item = await {cartax:datasheet.data.values[index][0],zone:datasheet.data.values[index][1],com:datasheet.data.values[index][2],name:datasheet.data.values[index][3],tell:datasheet.data.values[index][4],store:datasheet.data.values[index][5],mote:datasheet.data.values[index][6]}
     await sheetlist.push(item)
   }
+  schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
 }
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
-  // Param 2  ID = 1 : "บุญมา" | ID = 2 : "วีรศักดิ์" | ID = 3 : "ตุลาพร สีจุ้ย" | ID = 4 : "ณัฐสิทธิ์ อ่วมสอาด"  | ID = 5 : "นนทชัย แสนศรี"  | ID = 6 : "เกียรติพิทักษ์  แน่นอุดร"
- 
   const filtersheet = await sheetlist.filter(word=>word.mote ==="Run")
   filtersheet.forEach(element => Calling(element.store,element));
-
 }
 
 async function Retry(forms,person){
@@ -167,7 +176,7 @@ async function Calling(forms,person){
     while (loop == false) {
         loop = await callpost(filterA,person) == true ? true : false;
     };
-    await CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + ":: " +person.zone + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
+    // CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + ":: " +person.zone + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
     result.forEach(element => console.log('\x1b[32m%s\x1b[0m',element));
   } catch (error) {
     console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(0, 8));
