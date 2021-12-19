@@ -118,7 +118,7 @@ async function callpost(Gform,person){
       .field("entry.1588296166", person.com)
       .field("entry.529568088", person.name)
       .field("entry.881585707", person.tell)
-      .field("pageHistory", "0,2)
+      .field("pageHistory", "0,2")
       .end(function (res) {
         if (res.status == 200) {
           result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
