@@ -112,7 +112,7 @@ async function callpost(Gform,person){
     await unirest(
       "POST",Gform[0].ar[0].link
     )
-      .field("entry.1512331275", "10")
+      .field("entry.1512331275", "12")
       .field("entry.1339550343", person.cartax)
       .field("entry.752105905", person.zone)
       .field("entry.1588296166", person.com)
