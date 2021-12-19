@@ -112,12 +112,13 @@ async function callpost(Gform,person){
     await unirest(
       "POST",Gform[0].ar[0].link
     )
-      .field(Gform[0].ar[0].ecartax, person.cartax)
-      .field(Gform[0].ar[0].ezone, person.zone)
-      .field(Gform[0].ar[0].ecom, person.com)
-      .field(Gform[0].ar[0].ename, person.name)
-      .field(Gform[0].ar[0].etell, person.tell)
-      .field("pageHistory", "0,1")
+      .field("entry.1512331275", "10")
+      .field("entry.1339550343", person.cartax)
+      .field("entry.752105905", person.zone)
+      .field("entry.1588296166", person.com)
+      .field("entry.529568088", person.name)
+      .field("entry.881585707", person.tell)
+      .field("pageHistory", "0,2)
       .end(function (res) {
         if (res.status == 200) {
           result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
