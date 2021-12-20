@@ -57,35 +57,35 @@ var listGform = [
     form : "MTPR",
     ar : [
       {
-        link:Dic.MTPR,tob:"328838042",ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+        link:Dic.MTPR,tob:"1405683895",ecartax:"entry.2062313074",ezone:"entry.2020696256",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
       }
     ]
   },{
     form : "KBLC",
     ar : [
       {
-        link:Dic.KBLC,tob:"705493264",ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+        link:Dic.KBLC,tob:"1405683895",ecartax:"entry.1414324870",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
       }
     ]
   },{
     form : "KBLC2",
     ar : [
       {
-        link:Dic.KBLC,tob:"1153619043",ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+        link:Dic.KBLC,tob:"1405683895",ecartax:"entry.966225020",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
       }
     ]
   },{
     form : "KSLC",
     ar : [
       {
-        link:Dic.KSLC,tob:"879751300",ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
+        link:Dic.KSLC,tob:"1405683895",ecartax:"entry.848406278",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
       }
     ]
   },{
     form : "KMLC",
     ar : [
       {
-        link:Dic.KMLC,tob:"1400649790",ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
+        link:Dic.KMLC,tob:"1405683895",ecartax:"entry.856525795",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
       }
     ]
   },{
@@ -289,6 +289,36 @@ async function CallgetKP(){
     })
   });
 }
+async function CallgetMT(){
+  return new Promise(async (resolve, reject) => {
+    unirest
+    .get('https://docs.google.com/forms/u/0/d/e/1FAIpQLSeUdmVxPjlVwmr9_OLKQ7BbKPo3VLrQX2bsZuHnQtjkPklt8w/formResponse')
+    .then(async (response) => {
+      console.log(response.status)
+       var resp = response.body
+       if(response.status == 200){
+          if(response.body.includes("1405683895")){
+            let responseBody = response.body.match(/328838042/)
+            var A = responseBody.index - 26
+            var ooo = response.body.substr(A,30)
+            const words = ooo.split('&');
+            const wordsA = words[1].split(';');
+            console.log("kumtob : "+ wordsA[1]);
+            kumtob = wordsA[1]
+            resolve(resp);
+          }else{
+            resolve(null);
+          }
+       }else{
+        resolve(null);
+       }
+    })
+    .catch(err => {
+      resolve(null);
+      console.log("err"+ err)
+    })
+  });
+}
 async function GetdataSheet(){
   var datasheet = await CallGsheet()
   const CArr = datasheet.data.values.length
@@ -300,20 +330,24 @@ async function GetdataSheet(){
   }
   // schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
    while (kumtob == "") {
-      var callkp = await CallgetKP()
-      if(callkp != null){
-         break
-      }
-      var callks = await CallgetKS()
-      if(callks != null){
-         break
-      }
-      var callkm = await CallgetKM()
-      if(callkm != null){
-         break
-      }
-      var callkb = await CallgetKB()
-      if(callkb != null){
+      // var callkp = await CallgetKP()
+      // if(callkp != null){
+      //    break
+      // }
+      // var callks = await CallgetKS()
+      // if(callks != null){
+      //    break
+      // }
+      // var callkm = await CallgetKM()
+      // if(callkm != null){
+      //    break
+      // }
+      // var callkb = await CallgetKB()
+      // if(callkb != null){
+      //    break
+      // }
+      var callmt = await CallgetMT()
+      if(callmt != null){
          break
       }
    }
