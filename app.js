@@ -92,7 +92,7 @@ var listGform = [
     form : "KPLC",
     ar : [
       {
-        link:Dic.KPLC,tob:"1945488737",ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+        link:Dic.KPLC,tob:"1405683895",ecartax:"entry.2021303156",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
       }
     ]
   }
@@ -127,16 +127,42 @@ async function callpost(Gform,person){
 });
 }
  GetdataSheet()
+async function running(){
+  while (kumtob == "") {
+    var callkp = await CallgetKP()
+    if(callkp != null){
+       break
+    }
+    var callks = await CallgetKS()
+    if(callks != null){
+       break
+    }
+    var callkm = await CallgetKM()
+    if(callkm != null){
+       break
+    }
+    var callkb = await CallgetKB()
+    if(callkb != null){
+       break
+    }
+    // var callmt = await CallgetMT()
+    // if(callmt != null){
+    //    break
+    // }
+ }
+ CallStart()
+}
 async function schedulelam(h,m){
   console.log("scheduleJob .........WILL RUNNING AFTER " + h+":"+m+" Min")
   const rule = await new schedule.RecurrenceRule();
         rule.hour = h;
         rule.minute = m;
-        rule.second = 50;
+        // rule.second = 50;
         rule.tz = 'Asia/Bangkok';
   const job2 = schedule.scheduleJob(rule,function(){
     console.log('RUNNING..............');
-    CallStart();
+    // CallStart();
+    running()
   });
 }
 async function Callget(){
@@ -329,29 +355,7 @@ async function GetdataSheet(){
     await sheetlist.push(item)
   }
   // schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
-   while (kumtob == "") {
-      // var callkp = await CallgetKP()
-      // if(callkp != null){
-      //    break
-      // }
-      // var callks = await CallgetKS()
-      // if(callks != null){
-      //    break
-      // }
-      // var callkm = await CallgetKM()
-      // if(callkm != null){
-      //    break
-      // }
-      // var callkb = await CallgetKB()
-      // if(callkb != null){
-      //    break
-      // }
-      var callmt = await CallgetMT()
-      if(callmt != null){
-         break
-      }
-   }
-   CallStart()
+  schedulelam("15","17") 
 }
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
