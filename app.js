@@ -112,7 +112,7 @@ async function callpost(Gform,person){
       .field(Gform[0].ar[0].ecom, person.com)
       .field(Gform[0].ar[0].ename, person.name)
       .field(Gform[0].ar[0].etell, person.tell)
-      .field("pageHistory", "0,2")
+      .field("pageHistory", "0,1,2")
       .end(function (res) {
         if (res.status == 200) {
           result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
@@ -157,7 +157,7 @@ async function schedulelam(h,m){
   const rule = await new schedule.RecurrenceRule();
         rule.hour = h;
         rule.minute = m;
-        // rule.second = 50;
+        rule.second = 50;
         rule.tz = 'Asia/Bangkok';
   const job2 = schedule.scheduleJob(rule,function(){
     console.log('RUNNING..............');
@@ -354,8 +354,9 @@ async function GetdataSheet(){
     const item = await {cartax:datasheet.data.values[index][0],zone:datasheet.data.values[index][1],com:datasheet.data.values[index][2],name:datasheet.data.values[index][3],tell:datasheet.data.values[index][4],store:datasheet.data.values[index][5],mote:datasheet.data.values[index][6]}
     await sheetlist.push(item)
   }
-  // schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
-  schedulelam("16","59") 
+  schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
+  // schedulelam("16","59") 
+  // CallStart()
 }
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
