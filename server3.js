@@ -57,42 +57,42 @@ var listGform = [
     form : "MTPR",
     ar : [
       {
-        link:Dic.MTPR,tob:"1405683895",ecartax:"entry.2062313074",ezone:"entry.2020696256",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
+        link:Dic.MTPR,tob:"entry.1405683895",ecartax:"entry.2062313074",ezone:"entry.2020696256",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
       }
     ]
   },{
     form : "KBLC",
     ar : [
       {
-        link:Dic.KBLC,tob:"1405683895",ecartax:"entry.1414324870",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+        link:Dic.KBLC,tob:"entry.1405683895",ecartax:"entry.1414324870",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
       }
     ]
   },{
     form : "KBLC2",
     ar : [
       {
-        link:Dic.KBLC,tob:"1405683895",ecartax:"entry.966225020",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+        link:Dic.KBLC,tob:"entry.1405683895",ecartax:"entry.966225020",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
       }
     ]
   },{
     form : "KSLC",
     ar : [
       {
-        link:Dic.KSLC,tob:"1405683895",ecartax:"entry.848406278",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
+        link:Dic.KSLC,tob:"entry.1405683895",ecartax:"entry.848406278",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
       }
     ]
   },{
     form : "KMLC",
     ar : [
       {
-        link:Dic.KMLC,tob:"1405683895",ecartax:"entry.856525795",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
+        link:Dic.KMLC,tob:"entry.1405683895",ecartax:"entry.856525795",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
       }
     ]
   },{
     form : "KPLC",
     ar : [
       {
-        link:Dic.KPLC,tob:"1405683895",ecartax:"entry.2021303156",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+        link:Dic.KPLC,tob:"entry.1405683895",ecartax:"entry.2021303156",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
       }
     ]
   }
@@ -112,7 +112,7 @@ async function callpost(Gform,person){
       .field(Gform[0].ar[0].ecom, person.com)
       .field(Gform[0].ar[0].ename, person.name)
       .field(Gform[0].ar[0].etell, person.tell)
-      .field("pageHistory", "0,2")
+      .field("pageHistory", "0,1,2")
       .end(function (res) {
         if (res.status == 200) {
           result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
@@ -157,7 +157,7 @@ async function schedulelam(h,m){
   const rule = await new schedule.RecurrenceRule();
         rule.hour = h;
         rule.minute = m;
-        // rule.second = 50;
+        rule.second = 50;
         rule.tz = 'Asia/Bangkok';
   const job2 = schedule.scheduleJob(rule,function(){
     console.log('RUNNING..............');
@@ -354,8 +354,9 @@ async function GetdataSheet(){
     const item = await {cartax:datasheet.data.values[index][0],zone:datasheet.data.values[index][1],com:datasheet.data.values[index][2],name:datasheet.data.values[index][3],tell:datasheet.data.values[index][4],store:datasheet.data.values[index][5],mote:datasheet.data.values[index][6]}
     await sheetlist.push(item)
   }
-  // schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
-  schedulelam("15","59") 
+  schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
+  // schedulelam("16","59") 
+  // CallStart()
 }
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
