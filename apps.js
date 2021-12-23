@@ -7,6 +7,7 @@ const auth = new google.auth.GoogleAuth({
   scopes: "https://www.googleapis.com/auth/spreadsheets",
 });
 const spreadsheetId = "1aRG1ZGo_2qJxNp0OXzU7D7lckfz9AGNjFddeJ_ivWY0";
+var kumtob = ""
 async function CallGsheet(){
   return new Promise(async (resolve, reject) => {
     // Create client instance for auth
@@ -56,49 +57,49 @@ var listGform = [
     form : "MTPR",
     ar : [
       {
-        link:Dic.MTPR,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
+        link:Dic.MTPR,tob:"entry.1405683895",ecartax:"entry.2062313074",ezone:"entry.2020696256",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
       }
     ]
   },{
     form : "KBLC",
     ar : [
       {
-        link:Dic.KBLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+        link:Dic.KBLC,tob:"entry.1405683895",ecartax:"entry.1414324870",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
       }
     ]
   },{
     form : "KBLC2",
     ar : [
       {
-        link:Dic.KBLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+        link:Dic.KBLC2,tob:"entry.1405683895",ecartax:"entry.966225020",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
       }
     ]
   },{
     form : "KSLC",
     ar : [
       {
-        link:Dic.KSLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
+        link:Dic.KSLC,tob:"entry.1405683895",ecartax:"entry.848406278",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
       }
     ]
   },{
     form : "KMLC",
     ar : [
       {
-        link:Dic.KMLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
+        link:Dic.KMLC,tob:"entry.1405683895",ecartax:"entry.856525795",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
       }
     ]
   },{
     form : "KPLC",
     ar : [
       {
-        link:Dic.KPLC,ecartax:"entry.1405683895",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+        link:Dic.KPLC,tob:"entry.1405683895",ecartax:"entry.2021303156",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
       }
     ]
   },{
-    form : "TESTA",
+    form : "TESTB",
     ar : [
       {
-        link:Dic.TESTA,ecartax:"entry.1497021422",ezone:"entry.1101546368",ecom:"entry.1762606640",ename:"entry.550967469",etell:"entry.2035381388"
+        link:Dic.TESTB,tob:"entry.1568024900",ecartax:"entry.1497021422",ezone:"entry.1101546368",ecom:"entry.1762606640",ename:"entry.550967469",etell:"entry.2035381388"
       }
     ]
   }
@@ -112,12 +113,13 @@ async function callpost(Gform,person){
     await unirest(
       "POST",Gform[0].ar[0].link
     )
+      .field(Gform[0].ar[0].tob, kumtob)
       .field(Gform[0].ar[0].ecartax, person.cartax)
       .field(Gform[0].ar[0].ezone, person.zone)
       .field(Gform[0].ar[0].ecom, person.com)
       .field(Gform[0].ar[0].ename, person.name)
       .field(Gform[0].ar[0].etell, person.tell)
-      .field("pageHistory", "0,1")
+      .field("pageHistory", "0,1,2")
       .end(function (res) {
         if (res.status == 200) {
           result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
@@ -132,6 +134,39 @@ async function callpost(Gform,person){
 });
 }
  GetdataSheet()
+async function running(){
+  while (kumtob == "") {
+    var callkp = await CallgetKP()
+    if(callkp != null){
+      console.log("kumtob : "+ kumtob);
+       break
+    }
+    var callks = await CallgetKS()
+    if(callks != null){
+      console.log("kumtob : "+ kumtob);
+       break
+    }
+    var callkm = await CallgetKM()
+    if(callkm != null){
+      console.log("kumtob : "+ kumtob);
+       break
+    }
+    var callkb = await CallgetKB()
+    if(callkb != null){
+      console.log("kumtob : "+ kumtob);
+       break
+    }
+    // var callmt = await CallgetMT()
+    // if(callmt != null){
+    //    break
+    // }
+    // var callA = await Callget()
+    // if(callA != null){
+    //    break
+    // }
+ }
+ CallStart()
+}
 async function schedulelam(h,m){
   console.log("scheduleJob .........WILL RUNNING AFTER " + h+":"+m+" Min")
   const rule = await new schedule.RecurrenceRule();
@@ -141,23 +176,202 @@ async function schedulelam(h,m){
         rule.tz = 'Asia/Bangkok';
   const job2 = schedule.scheduleJob(rule,function(){
     console.log('RUNNING..............');
-    CallStart();
+    // CallStart();
+    running()
   });
 }
-// async function lamtest(){
-//   const xx = await sheetlist.filter(word=>word.mote ==="Run")
-//   xx.forEach(element => console.log(element));
-// }
+async function Callget(){
+  return new Promise(async (resolve, reject) => {
+    unirest
+    .get('https://docs.google.com/forms/d/e/1FAIpQLSdASzn5k8vRToNxonqRWfamxxCVKLahs0Nm5PxPny8wKxH-aw/formResponse')
+    .then(async (response) => {
+      console.log(response.status)
+       var resp = response.body
+       if(response.status == 200){
+          if(response.body.includes("1568024900")){
+            let responseBody =  response.body.match(/null,-2/)
+            var A =  responseBody.index - 26
+            var ooo =  response.body.substr(A,30)
+            const words =  ooo.split('&');
+            const wordsA =  words[1].split(';');
+            console.log("kumtob : "+ wordsA[1]);
+            kumtob = wordsA[1]
+            resolve(resp);
+          }else{
+            resolve(null);
+          }
+       }else{
+        resolve(null);
+       }
+    })
+    .catch(err => {
+      resolve(null);
+      console.log("err"+ err)
+    })
+  });
+}
+async function CallgetKB(){
+  return new Promise(async (resolve, reject) => {
+    unirest
+    .get('https://docs.google.com/forms/u/0/d/e/1FAIpQLSc-7h1j0sPlTpcUDVLkWz79d6y9uxSrFBuIz32TjZApTOcWAQ/formResponse')
+    .then(async (response) => {
+      console.log(response.status)
+       var resp = response.body
+       if(response.status == 200){
+          if(response.body.includes("1405683895")){
+            let responseBody = response.body.match(/705493264/)
+            var A = responseBody.index - 26
+            var ooo = response.body.substr(A,30)
+            const words = ooo.split('&');
+            const wordsA = words[1].split(';');
+            console.log("kumtob : "+ wordsA[1]);
+            kumtob = wordsA[1]
+            resolve(resp);
+          }else{
+            resolve(null);
+          }
+       }else{
+        resolve(null);
+       }
+    })
+    .catch(err => {
+      resolve(null);
+      console.log("err"+ err)
+    })
+  });
+}
+async function CallgetKS(){
+  return new Promise(async (resolve, reject) => {
+    unirest
+    .get('https://docs.google.com/forms/u/0/d/e/1FAIpQLSeTxEGwORy8NnJ20r3NcTBHkGU0HL3wI4Mzg7chl4K0C0_4vA/formResponse')
+    .then(async (response) => {
+      console.log(response.status)
+       var resp = response.body
+       if(response.status == 200){
+          if(response.body.includes("1405683895")){
+            let responseBody = response.body.match(/879751300/)
+            var A = responseBody.index - 26
+            var ooo = response.body.substr(A,30)
+            const words = ooo.split('&');
+            const wordsA = words[1].split(';');
+            console.log("kumtob : "+ wordsA[1]);
+            kumtob = wordsA[1]
+            resolve(resp);
+          }else{
+            resolve(null);
+          }
+       }else{
+        resolve(null);
+       }
+    })
+    .catch(err => {
+      resolve(null);
+      console.log("err"+ err)
+    })
+  });
+}
+async function CallgetKM(){
+  return new Promise(async (resolve, reject) => {
+    unirest
+    .get('https://docs.google.com/forms/u/0/d/e/1FAIpQLSccvn0AtV4utbVSvRABj-xP-mogj1uTJR8a-oEq-oWqpXIQCw/formResponse')
+    .then(async (response) => {
+      console.log(response.status)
+       var resp = response.body
+       if(response.status == 200){
+          if(response.body.includes("1405683895")){
+            let responseBody = response.body.match(/1400649790/)
+            var A = responseBody.index - 26
+            var ooo = response.body.substr(A,30)
+            const words = ooo.split('&');
+            const wordsA = words[1].split(';');
+            console.log("kumtob : "+ wordsA[1]);
+            kumtob = wordsA[1]
+            resolve(resp);
+          }else{
+            resolve(null);
+          }
+       }else{
+        resolve(null);
+       }
+    })
+    .catch(err => {
+      resolve(null);
+      console.log("err"+ err)
+    })
+  });
+}
+async function CallgetKP(){
+  return new Promise(async (resolve, reject) => {
+    unirest
+    .get('https://docs.google.com/forms/u/0/d/e/1FAIpQLSezoXnCDSGOIJoDyfto003IGypUwaG4kyAxb4NVJVn7F_oYLQ/formResponse')
+    .then(async (response) => {
+      console.log(response.status)
+       var resp = response.body
+       if(response.status == 200){
+          if(response.body.includes("1405683895")){
+            let responseBody = response.body.match(/1945488737/)
+            var A = responseBody.index - 26
+            var ooo = response.body.substr(A,30)
+            const words = ooo.split('&');
+            const wordsA = words[1].split(';');
+            kumtob = wordsA[1]
+            resolve(resp);
+          }else{
+            resolve(null);
+          }
+       }else{
+        resolve(null);
+       }
+    })
+    .catch(err => {
+      resolve(null);
+      console.log("err"+ err)
+    })
+  });
+}
+async function CallgetMT(){
+  return new Promise(async (resolve, reject) => {
+    unirest
+    .get('https://docs.google.com/forms/u/0/d/e/1FAIpQLSeUdmVxPjlVwmr9_OLKQ7BbKPo3VLrQX2bsZuHnQtjkPklt8w/formResponse')
+    .then(async (response) => {
+      console.log(response.status)
+       var resp = response.body
+       if(response.status == 200){
+          if(response.body.includes("1405683895")){
+            let responseBody = response.body.match(/328838042/)
+            var A = responseBody.index - 26
+            var ooo = response.body.substr(A,30)
+            const words = ooo.split('&');
+            const wordsA = words[1].split(';');
+            console.log("kumtob : "+ wordsA[1]);
+            kumtob = wordsA[1]
+            resolve(resp);
+          }else{
+            resolve(null);
+          }
+       }else{
+        resolve(null);
+       }
+    })
+    .catch(err => {
+      resolve(null);
+      console.log("err"+ err)
+    })
+  });
+}
 async function GetdataSheet(){
   var datasheet = await CallGsheet()
   const CArr = datasheet.data.values.length
   const CItem = datasheet.data.values[0].length
-  // console.log(datasheet.data.values)
+  console.log(datasheet.data.values)
   for (let index = 1; index < CArr; index++) {
     const item = await {cartax:datasheet.data.values[index][0],zone:datasheet.data.values[index][1],com:datasheet.data.values[index][2],name:datasheet.data.values[index][3],tell:datasheet.data.values[index][4],store:datasheet.data.values[index][5],mote:datasheet.data.values[index][6]}
     await sheetlist.push(item)
   }
-  schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
+  // schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
+  // schedulelam("16","44") 
+  // CallStart()
+  running()
 }
 async function CallStart(){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
