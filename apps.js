@@ -136,30 +136,30 @@ async function callpost(Gform,person){
  GetdataSheet()
 async function running(){
   while (kumtob == "") {
-    var callkp = await CallgetKP()
-    if(callkp != null){
-      console.log("kumtob : "+ kumtob);
-       break
-    }
-    var callks = await CallgetKS()
-    if(callks != null){
-      console.log("kumtob : "+ kumtob);
-       break
-    }
-    var callkm = await CallgetKM()
-    if(callkm != null){
-      console.log("kumtob : "+ kumtob);
-       break
-    }
-    var callkb = await CallgetKB()
-    if(callkb != null){
-      console.log("kumtob : "+ kumtob);
-       break
-    }
-    // var callmt = await CallgetMT()
-    // if(callmt != null){
+    // var callkp = await CallgetKP()
+    // if(callkp != null){
+    //   console.log("kumtob : "+ kumtob);
     //    break
     // }
+    // var callks = await CallgetKS()
+    // if(callks != null){
+    //   console.log("kumtob : "+ kumtob);
+    //    break
+    // }
+    // var callkm = await CallgetKM()
+    // if(callkm != null){
+    //   console.log("kumtob : "+ kumtob);
+    //    break
+    // }
+    // var callkb = await CallgetKB()
+    // if(callkb != null){
+    //   console.log("kumtob : "+ kumtob);
+    //    break
+    // }
+    var callmt = await CallgetMT()
+    if(callmt != null){
+       break
+    }
     // var callA = await Callget()
     // if(callA != null){
     //    break
