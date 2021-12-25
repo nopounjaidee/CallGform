@@ -57,63 +57,63 @@ var listGform = [
     form : "MTPR",
     ar : [
       {
-        link:Dic.MTPR,tob:"entry.1405683895",ecartax:"entry.2062313074",ezone:"entry.2020696256",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
+        link:"https://docs.google.com/forms/d/e/1FAIpQLSeUdmVxPjlVwmr9_OLKQ7BbKPo3VLrQX2bsZuHnQtjkPklt8w/formResponse",tob:"entry.1405683895",ecartax:"entry.2062313074",ezone:"entry.2020696256",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
       }
     ]
   },{
     form : "KBLC",
     ar : [
       {
-        link:Dic.KBLC,tob:"entry.1405683895",ecartax:"entry.1414324870",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+        link:"https://docs.google.com/forms/u/0/d/e/1FAIpQLSc-7h1j0sPlTpcUDVLkWz79d6y9uxSrFBuIz32TjZApTOcWAQ/formResponse",tob:"entry.1405683895",ecartax:"entry.1414324870",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
       }
     ]
   },{
     form : "KBLC2",
     ar : [
       {
-        link:Dic.KBLC2,tob:"entry.1405683895",ecartax:"entry.966225020",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
+        link:"https://docs.google.com/forms/d/e/1FAIpQLSc6_E-Zx3TbvnBT7hKkYOfmLrDOkt1tUlCw1zBB9qf9u1hSlQ/formResponse",tob:"entry.1405683895",ecartax:"entry.966225020",ezone:"entry.2062313074",ecom:"entry.403619387",ename:"entry.1527148059",etell:"entry.719396994"
       }
     ]
   },{
     form : "KSLC",
     ar : [
       {
-        link:Dic.KSLC,tob:"entry.1405683895",ecartax:"entry.848406278",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
+        link:"https://docs.google.com/forms/u/0/d/e/1FAIpQLSeTxEGwORy8NnJ20r3NcTBHkGU0HL3wI4Mzg7chl4K0C0_4vA/formResponse",tob:"entry.1405683895",ecartax:"entry.848406278",ezone:"entry.2062313074",ecom:"entry.1013496111",ename:"entry.953475437",etell:"entry.622068130"
       }
     ]
   },{
     form : "KMLC",
     ar : [
       {
-        link:Dic.KMLC,tob:"entry.1405683895",ecartax:"entry.856525795",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
+        link:"https://docs.google.com/forms/d/e/1FAIpQLSccvn0AtV4utbVSvRABj-xP-mogj1uTJR8a-oEq-oWqpXIQCw/formResponse",tob:"entry.1405683895",ecartax:"entry.856525795",ezone:"entry.2062313074",ecom:"entry.627358796",ename:"entry.325886033",etell:"entry.1742535871"
       }
     ]
   },{
     form : "KPLC",
     ar : [
       {
-        link:Dic.KPLC,tob:"entry.1405683895",ecartax:"entry.2021303156",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
+        link:"https://docs.google.com/forms/u/0/d/e/1FAIpQLSezoXnCDSGOIJoDyfto003IGypUwaG4kyAxb4NVJVn7F_oYLQ/formResponse",tob:"entry.1405683895",ecartax:"entry.2021303156",ezone:"entry.2062313074",ecom:"entry.546717404",ename:"entry.1556342174",etell:"entry.2136555444"
       }
     ]
   },{
     form : "TESTB",
     ar : [
       {
-        link:Dic.TESTB,tob:"entry.1568024900",ecartax:"entry.1497021422",ezone:"entry.1101546368",ecom:"entry.1762606640",ename:"entry.550967469",etell:"entry.2035381388"
+        link:"https://docs.google.com/forms/d/e/1FAIpQLSdASzn5k8vRToNxonqRWfamxxCVKLahs0Nm5PxPny8wKxH-aw/formResponse",tob:"entry.1568024900",ecartax:"entry.1497021422",ezone:"entry.1101546368",ecom:"entry.1762606640",ename:"entry.550967469",etell:"entry.2035381388"
       }
     ]
   }
 ]
 
 const sheetlist = []
-async function callpost(Gform,person){
+async function callpost(Gform,person,KT){
   var NameCall = " ("+ Gform[0].form + "-" + person.cartax +") "
   return new Promise(async (resolve, reject) => {
   // setTimeout(async () => {
     await unirest(
       "POST",Gform[0].ar[0].link
     )
-      .field(Gform[0].ar[0].tob, kumtob)
+      .field(Gform[0].ar[0].tob, KT)
       .field(Gform[0].ar[0].ecartax, person.cartax)
       .field(Gform[0].ar[0].ezone, person.zone)
       .field(Gform[0].ar[0].ecom, person.com)
@@ -123,10 +123,10 @@ async function callpost(Gform,person){
       .end(function (res) {
         if (res.status == 200) {
           result.push("CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
-          console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
+          console.log('\x1b[32m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " --> Kumtob : "+ KT +" :: Succeed : time : " + new Date().toTimeString().substr(0, 8));
           resolve(true);
         } else {
-          console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " :: Fail : time : " + new Date().toTimeString().substr(0, 8));
+          console.log('\x1b[31m%s\x1b[0m',"CallPost status : " + res.status +" ->"+ NameCall + " --> Kumtob : "+ KT +" :: Fail : time : " + new Date().toTimeString().substr(0, 8));
           resolve(false);
         }
       });
@@ -135,44 +135,53 @@ async function callpost(Gform,person){
 }
  GetdataSheet()
 async function running(){
+  var kt =""
   while (kumtob == "") {
-    // var callkp = await CallgetKP()
-    // if(callkp != null){
-    //   console.log("kumtob : "+ kumtob);
-    //    break
-    // }
-    // var callks = await CallgetKS()
-    // if(callks != null){
-    //   console.log("kumtob : "+ kumtob);
-    //    break
-    // }
-    // var callkm = await CallgetKM()
-    // if(callkm != null){
-    //   console.log("kumtob : "+ kumtob);
-    //    break
-    // }
-    // var callkb = await CallgetKB()
-    // if(callkb != null){
-    //   console.log("kumtob : "+ kumtob);
-    //    break
-    // }
+//     var callkp = await CallgetKP()
+//     if(callkp != null){
+//       kt = callkp
+//       console.log("kumtobget : "+ kt);
+//        break
+//     }
+//     var callks = await CallgetKS()
+//     if(callks != null){
+//       kt = callks
+//       console.log("kumtobget : "+ kt);
+//        break
+//     }
+//     var callkm = await CallgetKM()
+//     if(callkm != null){
+//       kt = callkm
+//       console.log("kumtobget : "+ kt);
+//        break
+//     }
+//     var callkb = await CallgetKB()
+//     if(callkb != null){
+//       kt = callkb
+//       console.log("kumtobget : "+ callkb);
+//        break
+//     }
     var callmt = await CallgetMT()
     if(callmt != null){
+      kt = callmt
+      console.log("kumtobget : "+ callmt);
        break
     }
     // var callA = await Callget()
     // if(callA != null){
+    //   kt = callA
+    //   console.log("kumtobget : "+ callkb);
     //    break
     // }
  }
- CallStart()
+ CallStart(kt)
 }
 async function schedulelam(h,m){
   console.log("scheduleJob .........WILL RUNNING AFTER " + h+":"+m+" Min")
   const rule = await new schedule.RecurrenceRule();
         rule.hour = h;
         rule.minute = m;
-        rule.second = 50;
+        // rule.second = 50;
         rule.tz = 'Asia/Bangkok';
   const job2 = schedule.scheduleJob(rule,function(){
     console.log('RUNNING..............');
@@ -196,7 +205,7 @@ async function Callget(){
             const wordsA =  words[1].split(';');
             console.log("kumtob : "+ wordsA[1]);
             kumtob = wordsA[1]
-            resolve(resp);
+            resolve(wordsA[1]);
           }else{
             resolve(null);
           }
@@ -226,7 +235,7 @@ async function CallgetKB(){
             const wordsA = words[1].split(';');
             console.log("kumtob : "+ wordsA[1]);
             kumtob = wordsA[1]
-            resolve(resp);
+            resolve(wordsA[1]);
           }else{
             resolve(null);
           }
@@ -256,7 +265,7 @@ async function CallgetKS(){
             const wordsA = words[1].split(';');
             console.log("kumtob : "+ wordsA[1]);
             kumtob = wordsA[1]
-            resolve(resp);
+            resolve(wordsA[1]);
           }else{
             resolve(null);
           }
@@ -286,7 +295,7 @@ async function CallgetKM(){
             const wordsA = words[1].split(';');
             console.log("kumtob : "+ wordsA[1]);
             kumtob = wordsA[1]
-            resolve(resp);
+            resolve(wordsA[1]);
           }else{
             resolve(null);
           }
@@ -315,7 +324,7 @@ async function CallgetKP(){
             const words = ooo.split('&');
             const wordsA = words[1].split(';');
             kumtob = wordsA[1]
-            resolve(resp);
+            resolve(wordsA[1]);
           }else{
             resolve(null);
           }
@@ -345,7 +354,7 @@ async function CallgetMT(){
             const wordsA = words[1].split(';');
             console.log("kumtob : "+ wordsA[1]);
             kumtob = wordsA[1]
-            resolve(resp);
+            resolve(wordsA[1]);
           }else{
             resolve(null);
           }
@@ -373,27 +382,27 @@ async function GetdataSheet(){
   // CallStart()
   running()
 }
-async function CallStart(){
+async function CallStart(kt){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
   const filtersheet = await sheetlist.filter(word=>word.mote ==="Run")
-  filtersheet.forEach(element => Calling(element.store,element));
+  filtersheet.forEach(element => Calling(element.store,element,kt));
 }
 
-async function Retry(forms,person){
-  Calling(forms,person);
+async function Retry(forms,person,kt){
+  Calling(forms,person,kt);
 }
 // CallStart();
-async function Calling(forms,person){
+async function Calling(forms,person,kt){
   try {
     var loop = false;
     const filterA = await listGform.filter(word=>word.form ===forms)
     while (loop == false) {
-        loop = await callpost(filterA,person) == true ? true : false;
+        loop = await callpost(filterA,person,kt) == true ? true : false;
     };
     // CallCreateLog(person.name,person.cartax,"CallPost  " +person.store + ":: " +person.zone + " :: Succeed : time : " + new Date().toTimeString().substr(0, 8))
     result.forEach(element => console.log('\x1b[32m%s\x1b[0m',element));
   } catch (error) {
     console.log('\x1b[31m%s\x1b[0m',"catch IN Calling : " + error +" -> "+ filterA[0].form + " " + filterA[0].ar[0].ecartax +" :: ERROR ! : time : " + new Date().toTimeString().substr(0, 8));
-    Retry(forms,person);
+    Retry(forms,person,kt);
   }
 };
