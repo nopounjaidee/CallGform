@@ -378,9 +378,9 @@ async function GetdataSheet(){
     await sheetlist.push(item)
   }
   // schedulelam(datasheet.data.values[0][7],datasheet.data.values[0][8])  
-  // schedulelam("16","44") 
+  schedulelam("16","59") 
   // CallStart()
-  running()
+//   running()
 }
 async function CallStart(kt){
   // Param 1  ลิงค์ = MTPR : KBLC : KSLC : KMLC : KPLC : TESTA : TESTB : TESTC
